@@ -7,84 +7,143 @@ import AddModal from './components/AddModal';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { addPerson, getStatus } from './features/personSlice';
+import { addPerson, getPersons, getStatus, setId, updatePerson } from './features/personSlice';
+import TableBody from './components/TableBody';
+import UpdateModal from './components/UpdateModal';
 
 function App() {
+  const dispatch = useDispatch();
+  // add state
+  const [showAdd, setShowAdd] = useState(false);
+  const handleCloseAdd = () => setShowAdd(false);
+  const handleShowAdd = () => setShowAdd(true);
+
+  // update state
+  const [showUpdate, setShowUpdate] = useState(false);
+  const handleCloseUpdate = () => {
+    dispatch(setId(''))
+    setShowUpdate(false);
+  }
+  const handleShowUpdate = (id) => {
+    dispatch(setId(id))
+    setShowUpdate(true)
+  };
+
 
   const nameRef = useRef();
-  const addressRef= useRef();
+  const addressRef = useRef();
   const contactRef = useRef();
   const emailRef = useRef();
 
-  const dispatch = useDispatch();
 
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
+
+  //get data from personSlice
   const status = useSelector(getStatus);
+  const persons = useSelector(getPersons);
 
-  const addFormSubmit = (e) => {
+  const addPersonSubmit = (e) => {
     e.preventDefault();
-    if(status === 'idle'){
+
+    const name = nameRef.current.value;
+    const contact = contactRef.current.value;
+    const address = addressRef.current.value;
+    const email = emailRef.current.value;
+
+
+    if (status === 'idle') {
       dispatch(addPerson(
         {
           id: nanoid(),
-          name: nameRef.current.value,
-          contact: contactRef.current.value,
-          address: addressRef.current.value,
-          emailRef: emailRef.current.value
+          name,
+          contact,
+          address,
+          email
         }
       ));
-      setShow(false);
+      setShowAdd(false);
     };
   }
 
 
+  const updatePersonSubmit = (e) => {
+    e.preventDefault();
+    if (status === 'idle') {
+      dispatch(updatePerson({
+        id: nanoid(),
+        name: nameRef.current.value,
+        contact: contactRef.current.value,
+        address: addressRef.current.value,
+        email: emailRef.current.value
+      }));
+      setShowUpdate(false);
+    }
+  }
 
 
 
   return (
     <>
+      <div className='App'>
       <Header />
       <Container className='mt-4'>
-        <Stack direction="horizontal">
-          <Button variant="primary" onClick={handleShow}>Primary</Button>
-        </Stack>
+     
 
-        <Stack direction="vertical" className='mt-4 bg-white p-4'>
-          <Table bordered hover className='mt-3'>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Contact</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
+        <Stack direction="vertical" className='mt-3 bg-white p-4'>
+          <div>
+          <Button variant="success"  onClick={handleShowAdd}>
+              +Person
+          </Button>
+          </div>
+          <div class="table-responsive">
+            <Table bordered hover className='mt-3'>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Contact</th>
+                  <th>Email</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  persons?.map((person) => (
+                    <TableBody person={person} key={person.id} handleShowUpdate={handleShowUpdate} />
+                  ))
+                }
 
-            </tbody>
-          </Table>
+              </tbody>
+            </Table>
+          </div>
         </Stack>
       </Container>
 
+      <footer className='py-2'>
+           <a href="https://facebook.com/blckclov3r">Blckclov3r</a>
+      </footer>
 
-      <AddModal handleClose={handleClose} show={show} addFormSubmit={addFormSubmit} 
-          nameRef={nameRef}
-          contactRef={contactRef}
-          addressRef={addressRef}
-          emailRef={emailRef}
-          status={status}
+      </div>
+
+
+      <AddModal handleClose={handleCloseAdd} show={showAdd} addPersonSubmit={addPersonSubmit}
+        nameRef={nameRef}
+        contactRef={contactRef}
+        addressRef={addressRef}
+        emailRef={emailRef}
+        status={status}
+      />
+
+      <UpdateModal
+        handleClose={handleCloseUpdate} show={showUpdate} updatePersonSubmit={updatePersonSubmit}
+        // status={status}
+        nameRef={nameRef}
+        contactRef={contactRef}
+        addressRef={addressRef}
+        emailRef={emailRef}
+
       />
     </>
   );

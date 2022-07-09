@@ -1,10 +1,10 @@
 /* make the customizations */
 $theme-colors: (
-    "primary": rgb(31, 87, 144),
-    "success": rgb(75, 156, 50),
-    "warning": rgb(194, 202, 57),
-    "info": tomato,
-    "danger": teal
+    "primary": rgb(31, 106, 144),
+    "success": rgb(32, 137, 0),
+    "warning": rgb(243, 73, 0),
+    "info": rgb(61, 107, 193),
+    "danger": rgb(201, 41, 41)
 );
 
 /* import bootstrap to set changes */
@@ -15,4 +15,15 @@ body{
     background-image: linear-gradient(hsla(0,0%,100%,.2),hsla(0,0%,100%,.4)),url(https://raw.githubusercontent.com/blckclov3r/blckclov3r.github.io/master/public/bgslash.webp);
     background-size: auto;
     font-family: Open Sans,sans-serif;
+}
+
+.App{
+    height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+
+footer{
+    margin-top: auto;
+    text-align: center;
 }

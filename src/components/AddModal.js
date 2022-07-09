@@ -1,7 +1,7 @@
 import { Button, Modal, Form } from "react-bootstrap";
 
 
-export default function AddModal({ show, handleClose, addFormSubmit, nameRef,contactRef,addressRef,emailRef, status }) {
+export default function AddModal({ show, handleClose, addPersonSubmit, nameRef,contactRef,addressRef,emailRef, status }) {
     return (
         <>
             <Modal
@@ -10,7 +10,7 @@ export default function AddModal({ show, handleClose, addFormSubmit, nameRef,con
                 backdrop="static"
                 keyboard={false}
             >
-                <Form onSubmit={addFormSubmit}>
+                <Form onSubmit={addPersonSubmit}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add New</Modal.Title>
                     </Modal.Header>
@@ -18,19 +18,19 @@ export default function AddModal({ show, handleClose, addFormSubmit, nameRef,con
 
                         <Form.Group className="mb-3" >
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" ref={nameRef}  placeholder="Name" />
+                            <Form.Control type="text" ref={nameRef}  placeholder="Name" required />
                         </Form.Group>
                         <Form.Group className="mb-3" >
                             <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" ref={addressRef} placeholder="Address" />
+                            <Form.Control type="text" ref={addressRef} placeholder="Address" required />
                         </Form.Group>
                         <Form.Group className="mb-3" >
                             <Form.Label>Contact</Form.Label>
-                            <Form.Control type="text" ref={contactRef} placeholder="Contact" />
+                            <Form.Control type="text" ref={contactRef} placeholder="Contact" required />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} placeholder="Email" />
+                            <Form.Control type="email" ref={emailRef} placeholder="Email" required />
                         </Form.Group>
 
                     </Modal.Body>
