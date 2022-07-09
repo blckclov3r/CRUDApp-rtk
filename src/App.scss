@@ -1,0 +1,18 @@
+/* make the customizations */
+$theme-colors: (
+    "primary": rgb(31, 87, 144),
+    "success": rgb(75, 156, 50),
+    "warning": rgb(194, 202, 57),
+    "info": tomato,
+    "danger": teal
+);
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+
+body{
+    background: #f1f1f1;
+    background-image: linear-gradient(hsla(0,0%,100%,.2),hsla(0,0%,100%,.4)),url(https://raw.githubusercontent.com/blckclov3r/blckclov3r.github.io/master/public/bgslash.webp);
+    background-size: auto;
+    font-family: Open Sans,sans-serif;
+}
