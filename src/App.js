@@ -96,7 +96,7 @@ function App() {
               +Person
           </Button>
           </div>
-          <div class="table-responsive">
+          <div className="table-responsive">
             <Table bordered hover className='mt-3'>
               <thead>
                 <tr>

@@ -1,13 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const  initialState = {
+    persons: [
+        {
+            id: '1',
+            name: 'Aljun A.',
+            address: 'XXXX Talisay City, Cebu',
+            contact: '09239318969',
+            email: 'blckclov3r@gmail.com'
+        },
+        {
+            id: '2',
+            name: 'Ellen Grace',
+            address: 'XXXX Talisay City, Cebu',
+            contact: '09000000000',
+            email: 'ellen@email.com'
+        },
+    ],
+    status: 'idle', //loading, error
+    id: '',
+}
 
 export const personSlice = createSlice({
     name: "person",
-    initialState: {
-        persons: [],
-        status: 'idle', //loading, error
-        id: '',
-    },
+    // initialState: {
+    //     persons: [],
+    //     status: 'idle', //loading, error
+    //     id: '',
+    // },
+    initialState,
     reducers: {
         addPerson: (state, action) => {
             try {
